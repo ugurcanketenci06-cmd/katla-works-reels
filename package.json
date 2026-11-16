@@ -5,17 +5,20 @@
   "scripts": {
     "dev": "remotion studio src/index.tsx",
     "check": "tsc --noEmit",
+    "verify": "node scripts/verify.mjs",
     "compositions": "remotion compositions src/index.tsx"
   },
   "dependencies": {
     "@remotion/cli": "4.0.544",
-    "remotion": "4.0.544",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "remotion": "4.0.544"
   },
   "devDependencies": {
-    "typescript": "~5.9.3",
+    "@remotion/bundler": "4.0.544",
+    "@remotion/renderer": "4.0.544",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
+    "@types/react-dom": "^19.0.0",
+    "typescript": "~5.9.3"
   }
 }
