@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "c26d836f8a6d3a784c46c1994675b628bc7137ac",
+  "file": "katla-works-final.mp4",
+  "sha256": "1b09e6ea67fcd007901054dbb69653c32ae46733c94383b91bd2448c82bfc5cc",
+  "bytes": 3828805,
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "videoFrames": 1095,
+  "durationSeconds": 36.501,
+  "videoCodec": "h264",
+  "audioCodec": "aac",
+  "fastStart": true,
+  "validation": "All video and audio frames decoded successfully with FFmpeg; final scene image inspected."
+}
