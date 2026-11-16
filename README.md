@@ -1,21 +1,26 @@
-# Katla Works Reels
+# Katla Works Reels — Sesli ve logolu önizleme
 
-React + TypeScript + Remotion. 1080×1920, 30 FPS, 720 kare / 24 saniye.
+React + TypeScript + Remotion. `KatlaWorksReels`: **1080×1920, 30 FPS, 1095 kare / 36,5 saniye**, 6 sahne.
 
-Ses dosyası için `public/audio/voiceover.mp3` konumunu kullanın. Ses eklenince `withAudio` prop değerini `true` yapın. `src/timeline.ts` sahne başlangıçlarını ve sürelerini içerir. Henüz final render yapılmadı.
+## Çalıştırma
 
-Codex ortamında `npm install`, `npm run check`, `npm run compositions` ile doğrulayın. Önizleme için `npm run dev`.
+Node.js 22 veya 24 ile:
 
-## Kurulum ve doğrulama
-
-- Node.js 22 veya 24 kullanın. Kilitli bağımlılıkları `npm ci` ile kurun.
+- `npm ci`: kilitli bağımlılıkları kurar.
+- `npm run dev -- --port=3000 --no-open`: Remotion Studio'yu başlatır. `http://localhost:3000/KatlaWorksReels` adresinde Play'e basın; ses açık gelir.
 - `npm run check`: TypeScript kontrolü.
-- `npm run compositions`: kompozisyon boyutu, FPS ve süre bilgisi.
-- `npm run verify`: gerçek Chromium içinde 5 sahnenin giriş, tipografi, geçiş ve son karelerinden toplam 30 PNG üretir (`out/verification/`). MP4 üretmez.
-- Sistem Chromium kullanılıyorsa: `REMOTION_BROWSER_EXECUTABLE=/usr/bin/chromium npm run verify`. Kompozisyon listesi için: `npm run compositions -- --browser-executable=/usr/bin/chromium`.
+- `npm run compositions`: boyut, FPS ve süre kontrolü.
+- `npm run verify`: Chromium'da altı sahnenin giriş, animasyon ve son karelerinden 36 PNG üretir (`out/verification/`). MP4 üretmez.
+- Studio çalışırken `npm run verify:preview`: MP3'ü tarayıcıda çözer, sessiz olmadığını kontrol eder ve Studio'da sesi açık şekilde 40 saniyelik oynatma testi yapar. MP4 üretmez.
 
-## Seslendirmeyi sonradan ekleme
+Sistem Chromium için test komutlarının önüne `REMOTION_BROWSER_EXECUTABLE=/usr/bin/chromium` ekleyin. Kompozisyon listesi için `npm run compositions -- --browser-executable=/usr/bin/chromium` kullanın. Farklı Studio adresi `STUDIO_URL` ile belirtilebilir.
 
-`public/audio/voiceover.mp3` henüz gerekli değildir: `withAudio: false` varsayılanıyla ses bileşeni oluşturulmaz ve eksik dosya istenmez. Dosyayı ekledikten sonra Studio'nun Props alanında `withAudio` değerini `true` yapın (kalıcı varsayılan için `src/index.tsx` içindeki `defaultProps` değerini değiştirin). Ses ilk karede başlar; video süresi 24 saniye olarak kalır. Daha uzun ses bu sürede kesilir, kısa ses sonrasında video sessiz devam eder. Ses dosyası `.gitignore` kapsamındadır.
+## Medya ve zamanlama
 
-Türkçe metinler UTF-8 tutulur. Animasyonlar kare numarasından hesaplanır; sahne süreleri `src/timeline.ts` dosyasındadır. Son çağrı sahnesi son kareye kadar görünür kalır.
+- Gerçek ses: `public/audio/voiceover.mp3` (MP3, mono, 44,1 kHz; 36,4408 saniye).
+- Logo: `public/images/katla-logo.jpg`.
+- Ses ilk kareden başlar. Görüntü ses kaydını tamamen kapsar.
+- Sahne zamanlaması `src/timeline.ts` içindedir; aralarında boşluk veya çakışma olmaması test edilir.
+- Konuşma ile sahnelerin kelime düzeyinde eşleşmesi ve marka telaffuzu ayrıca dinlenerek değerlendirilmelidir; otomatik test bunları doğrulamaz.
+
+Bu sürümde nihai MP4 render edilmez. Studio'nun isteğe bağlı çevrimiçi hata duyurusu servisine erişilememesi önizlemenin çalışmasını engellemez; test raporunda ayrı gösterilir.

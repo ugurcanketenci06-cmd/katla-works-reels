@@ -1,12 +1,13 @@
 {
   "name": "katla-works-reels",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "remotion studio src/index.tsx",
     "check": "tsc --noEmit",
     "verify": "node scripts/verify.mjs",
-    "compositions": "remotion compositions src/index.tsx"
+    "compositions": "remotion compositions src/index.tsx",
+    "verify:preview": "node scripts/verify-preview.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.544",

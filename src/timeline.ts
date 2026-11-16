@@ -1,9 +1,10 @@
 export const FPS = 30;
-export const DURATION = 720;
+export const DURATION = 1095; // 36.5 seconds: 36.4408s audio fits
 export const SCENES = [
- {start:0,duration:150,kicker:'BU MALİYETLERDEN SIKILMADIN MI?',lines:['PERSONEL.','YEMEK.','SİGORTA.'],footer:'İŞLETMEN İÇİN DAHA AKILLI BİR YOL VAR.'},
- {start:150,duration:120,kicker:'01 / DİJİTAL VİTRİN',lines:['WEB SİTESİ','YÖNETİMİ'],footer:'DİJİTALDE PROFESYONEL GÖRÜN.'},
- {start:270,duration:120,kicker:'02 / BÜYÜME',lines:['META REKLAM','YÖNETİMİ'],footer:'DOĞRU KİTLEYE ULAŞ.'},
- {start:390,duration:150,kicker:'03 / YARATICI İÇERİK',lines:['SOSYAL MEDYA','İÇERİKLERİ'],footer:'DİKKAT ÇEKEN VİDEOLAR.'},
- {start:540,duration:180,kicker:'BURSA’DAKİ İŞLETMELERE ÖZEL',lines:['KATLA WORKS','DM’DEN YAZ!'],footer:'HEMEN MESAJ GÖNDER.'}
+  {start:0, end:155, title:'MALİYETLER', kind:'cost'},
+  {start:155, end:300, title:'DAHA FAZLA MASRAF?', kind:'question'},
+  {start:300, end:445, title:'ARTIK GEREK YOK', kind:'brand'},
+  {start:445, end:700, title:'DİJİTAL HİZMETLER', kind:'services'},
+  {start:700, end:900, title:'TEK ÇATI ALTINDA', kind:'bundle'},
+  {start:900, end:1095, title:'DİJİTAL İŞLERİ BİZE BIRAK', kind:'cta'},
 ] as const;
