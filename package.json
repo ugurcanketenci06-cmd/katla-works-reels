@@ -7,7 +7,9 @@
     "check": "tsc --noEmit",
     "verify": "node scripts/verify.mjs",
     "compositions": "remotion compositions src/index.tsx",
-    "verify:preview": "node scripts/verify-preview.mjs"
+    "verify:preview": "node scripts/verify-preview.mjs",
+    "verify:audio": "node scripts/verify-audio.mjs",
+    "verify:layout": "node scripts/verify-preview.mjs --layout-only"
   },
   "dependencies": {
     "@remotion/cli": "4.0.544",

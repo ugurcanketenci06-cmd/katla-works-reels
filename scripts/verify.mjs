@@ -10,7 +10,7 @@ const source = await readFile('src/timeline.ts', 'utf8');
 const {outputText} = ts.transpileModule(source, {
   compilerOptions: {module: ts.ModuleKind.ESNext},
 });
-const {SCENES, FPS, DURATION} = await import(
+const {SCENES, FPS, DURATION, PAUSES, SERVICES} = await import(
   `data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`
 );
 assert.equal(FPS, 30);
@@ -22,6 +22,16 @@ for (const scene of SCENES) {
   nextStart = scene.end;
 }
 assert.equal(nextStart, DURATION);
+for (const scene of SCENES.slice(1)) {
+  const from = (scene.start-2)/FPS, to = (scene.start+2)/FPS;
+  assert.ok(PAUSES.some(p=>from>=p.start && to<=p.end), `Cut at ${scene.start} must fit entirely inside a measured pause`);
+}
+const narrationSource = await readFile('src/narration.ts','utf8');
+const narrationJS = ts.transpileModule(narrationSource, {compilerOptions:{module:ts.ModuleKind.ESNext}}).outputText;
+const {WORDS} = await import(`data:text/javascript;base64,${Buffer.from(narrationJS).toString('base64')}`);
+for (const scene of SCENES.slice(1)) {
+  assert.ok(WORDS.every(w=>w.end<=(scene.start-2)/FPS || w.start>=(scene.start+2)/FPS), 'A transition must not cover an aligned spoken word');
+}
 const serveUrl = await bundle({entryPoint: 'src/index.tsx'});
 const browser = await openBrowser('chrome', {browserExecutable});
 try {
@@ -46,6 +56,11 @@ try {
       });
       count++;
     }
+  }
+  for (const service of SERVICES) {
+    const frame = Math.round(service.at*FPS)+25;
+    await renderStill({serveUrl, composition, frame, puppeteerInstance:browser, output:`out/verification/service-${service.kind}.png`, imageFormat:'png'});
+    count++;
   }
   console.log(`PASS: 1080x1920, 30 FPS, 1095 frames; ${count} PNG frames rendered with voiceover and logo assets.`);
 } finally {
